@@ -1,0 +1,61 @@
+useState()
+
+Dùng khi muốn dữ liệu thay đổi thì giao diện tự động cập nhật (auto render lại)
+
+const [state, setState] = useState(initState);
+
+Lưu ý:
+- Component được re-render sau khi setState
+- initial state chỉ dùng cho lần đầu
+- set state với callback:
+    const handleIncrease = () => {
+        setCounter(counter + 1);
+        setCounter(counter + 1);
+        setCounter(counter + 1); 
+    }
+    thì sẽ chỉ tăng counter lên 1 do useState chưa re-render ngay sau khi thực hiện lệnh set
+    => phải dùng callback nếu muốn làm ntn:
+    const handleIncrease = () => {
+        setCounter(prevState => prevState + 1);
+        setCounter(prevState => prevState + 1);
+        setCounter(prevState => prevState + 1);
+    }
+    thì sẽ tăng lên 3 lần.
+    Lưu ý, một func như trên thì react vẫn sẽ chỉ re-render 1 lần.
+- initial state với callback:
+
+    const orders = [100, 200, 300]
+    const [counter, setCounter] = useState(() => {
+        const total = orders.reduce((total, cur) => total + cur);
+        console.log(total);
+        return total;
+    })
+    Đưa tính toán vào trong useState(), callback giá trị đã được tính này để không lặp lại tính toán nhiều lần
+    => cải thiện performance
+- set state là thay thế state bằng giá trị mới.
+    const [info, setInfo] = useState({
+        name: 'Nguyen Van A', 
+        age: 16:
+        address: 'Hanoi, VN'
+    })
+    const handleUpdate = () => {
+        setInfo({
+            bio: 'Yeu mau hong'
+        })
+    }
+    handleUpdate sẽ thay thế info initial kia bằng info mới.
+    muốn làm để info mới sẽ bổ sung vào info initial.
+
+    const handleUpdate = () => {
+        setInfo({
+            ...info,
+            bio: 'Yeu mau hong'
+        })
+    }
+
+    const handleUpdate = () => {
+        setInfo(prevState => {
+            ...prevState,
+            bio: 'Yeu mau hong'
+        })
+    }
