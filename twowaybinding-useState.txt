@@ -1,0 +1,150 @@
+ràng buộc 1 chiều: ReactJS
+ràng buộc 2 chiều: VueJS
+chiều: chiều tương tác trên giao diện, chiều dữ liệu
+
+sửa ở giao diện, dữ liệu thay đổi: 1 way binding
+sửa ở dữ liệu, giao diện cũng thay đổi: 2 way binding
+
+1 way binding:
+    function App() {
+        const [name, setName] = useState('blank');
+
+        return (
+            <div style={{padding: 40}}>
+                <input onChange={e => setName(e.target.value)}>
+
+                </input>
+            </div>
+        );
+    }
+
+2 way binding:
+    function App() {
+        const [name, setName] = useState('blank');
+
+        return (
+            <div style={{padding: 40}}>
+                <input value = {name} onChange={e => setName(e.target.value)}>
+
+                </input>
+                <button onClick={() => setName('Nguyen Van BBB')}>Change</button>
+            </div>
+        );
+    }
+
+Ví dụ thực tế cho 2 way binding (thường được sử dụng cho form)
+function App() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = () => {
+    console.log({
+      name,
+      email
+    });
+  }
+
+  return (
+    <div style={{padding: 40}}>
+      <input value = {name} onChange={e => setName(e.target.value)}>
+
+      </input>
+      <input value = {email} onChange={e => setEmail(e.target.value)}>
+
+      </input>
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+
+Tạo form radio (chọn 1):
+const response = [
+  {
+    id: 1,
+    name: 'HTML, CSS'
+  },
+  {
+    id: 2,
+    name: 'JavaScript'
+  },
+  {
+    id: 3,
+    name: 'ReactJS'
+  }
+]
+function App() {
+
+  const [checked, setChecked] = useState();
+
+  const handleSubmit = () => {
+
+  }
+
+  return (
+    <div style={{padding: 40}}>
+      {response.map(item => (
+        <div key={item.id}>
+          <input 
+            checked={checked === item.id}
+            onChange={() => setChecked(item.id)} 
+            type='radio'>
+          </input>
+          {item.name}
+        </div>
+      ))}
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+
+Tạo form radio (chọn nhiều):
+const response = [
+  {
+    id: 1,
+    name: 'HTML, CSS'
+  },
+  {
+    id: 2,
+    name: 'JavaScript'
+  },
+  {
+    id: 3,
+    name: 'ReactJS'
+  }
+]
+function App() {
+
+  const [checked, setChecked] = useState([]);
+
+  console.log(checked)
+  const handleCheck = (id) => {
+    setChecked(prev => {
+      const isChecked = checked.includes(id)
+      if (isChecked) {
+        return checked.filter(item => item !== id);
+      }
+      else {
+        return [...[prev, id]]
+      }
+    })
+  }
+
+  const handleSubmit = () => {
+  }
+
+  return (
+    <div style={{padding: 40}}>
+      {response.map(item => (
+        <div key={item.id}>
+          <input 
+            // checked={checked.includes(item.id)}
+            onChange={() => handleCheck(item.id)} 
+            type='checkbox'>
+          </input>
+          {item.name}
+        </div>
+      ))}
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
