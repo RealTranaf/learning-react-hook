@@ -1,3 +1,156 @@
 Những nội dung cần ôn lại:
 
-Events: AĐ
+Events: Add/remove event listener
+Observer pattern: subscribe/unsubscribe
+Closure
+Timers: setInterval, setTimeout, clearInterval, clearTimeout
+
+useEffect dùng để:
+- update DOM
+- call API
+- listen DOM Events
+    + scroll
+    + resize
+- clean up
+    + remove listener/unsubscribe
+    + clear Timer
+
+useEffect(callback, [deps])
+callback: các side effect (đã liệt kê ở trên)
+
+có 3 trường hợp:
+    useEffect(callback)
+        - gọi callback mỗi khi component re-render
+        - gọi callback sau khi component thêm element vào DOM
+        => chạy sau khi các element được thêm vào trong DOM và đã re-render
+    useEffect(callback, [])
+        - chỉ gọi callback 1 lần sau khi component mount (ko phải khi component re-render)
+    useEffect(callback, [deps])
+        - callback sẽ được gọi lại mỗi khi dependency thay đổi
+
+- callback luôn được gọi sau khi component mount
+
+function UpdateDom() {
+    const [show, setShow] = useState(false)
+
+    const handleShow = () => {
+        setShow(!show);
+    }
+    useEffect(() => {
+        console.log("Mounted")
+    })
+    return (
+        <div style={{ padding: 20 }}>
+            {show && <h1>Skibidi</h1>}
+            <button onClick={handleShow}>Show</button>
+        </div>
+    )
+}
+
+Dòng log kia sẽ chạy mỗi khi thay đổi trạng thái mount
+
+Code để update title dựa theo input
+
+function UpdateDom() {
+    const [title, setTitle] = useState('')
+
+    useEffect(() => {
+        // console.log("Re-render", title)
+        document.title = title
+    })
+
+    const handleInput = (e) => {
+        setTitle(e.target.value)
+        // console.log(title)
+    }
+    return (
+        <div style={{ padding: 20 }}>
+            <input
+                value={title}
+                onChange={handleInput}
+            >
+            </input>
+        </div>
+    )
+}
+
+Đặt document.title vào trong useEffect
+
+function CallAPI() {
+    const [title, setTitle] = useState('')
+    const [data, setData] = useState([])
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(res => res.json())
+            .then(posts => {
+                setData(posts)
+            })
+    })
+
+    const handleInput = (e) => {
+        setTitle(e.target.value)
+        // console.log(title)
+    }
+    return (
+        <div style={{ padding: 20 }}>
+            <input
+                value={title}
+                onChange={handleInput}
+            >
+            </input>
+            <ul>
+                {data.map(item => (
+                    <li key={item.id}>{item.body}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+useEffect sẽ chạy mỗi khi re-render => có 100 item trong data thì sẽ fetch lại 100 lần => RẤT TỆ
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(res => res.json())
+            .then(posts => {
+                setData(posts)
+            })
+    }, [])
+
+làm thế này mới là đúng, sẽ chỉ fetch 1 lần khi component mount
+
+function CallAPI() {
+    const [data, setData] = useState([])
+    const [type, setType] = useState('posts')
+
+    useEffect(() => {
+
+        // console.log('Type changed!')
+        fetch(`https://jsonplaceholder.typicode.com/${type}`)
+            .then(res => res.json())
+            .then(data => {
+                setData(data)
+            })
+    }, [type])
+
+    return (
+        <div style={{ padding: 20 }}>
+            {tabs.map(tab => (
+                <button 
+                    onClick={() => setType(tab)} 
+                    key={tab}
+                    style={type === tab ? {
+                        color: '#fff',
+                        backgroundColor: '#333'
+                    } : {}} >
+                    {tab}
+                </button>
+            ))}
+            <ul>
+                {data.map(item => (
+                    <li key={item.id}>{item.body || item.title}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+useEffect sẽ được chạy khi type thay đổi

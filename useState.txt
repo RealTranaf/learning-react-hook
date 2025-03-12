@@ -1,5 +1,7 @@
 useState()
 
+files involved: ToDoList.js
+
 Dùng khi muốn dữ liệu thay đổi thì giao diện tự động cập nhật (auto render lại)
 
 const [state, setState] = useState(initState);
