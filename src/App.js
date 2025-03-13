@@ -5,8 +5,15 @@ import MountedExample from './MountedExample';
 import UpdateDom from './useEffectExample/UpdateDom';
 import CallAPI from './useEffectExample/CallAPI';
 import ListenDomEvent from './useEffectExample/ListenDomEvent';
+import ResizeWindow from './useEffectExample/ResizeWindow';
+import Timer from './useEffectExample/Timer'
 
 function App() {
+  const [show, setShow] = useState(false)
+
+  const handleShow = () => {
+      setShow(!show);
+  }
 
   return (
     // <ToDoList>
@@ -21,9 +28,14 @@ function App() {
     // <CallAPI>
 
     // </CallAPI>
-    <ListenDomEvent>
+    <div style={{padding: 20}}>
+      <button onClick={handleShow}>Show</button>
+      {/* {show && <ListenDomEvent></ListenDomEvent>}  */}
+      {/* {show && <ResizeWindow></ResizeWindow>}  */}
+      {show && <Timer></Timer>} 
       
-    </ListenDomEvent>
+    </div>
+
   );
 }
 

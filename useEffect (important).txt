@@ -29,6 +29,8 @@ có 3 trường hợp:
         - callback sẽ được gọi lại mỗi khi dependency thay đổi
 
 - callback luôn được gọi sau khi component mount
+- clean up function: được gọi trước khi component unmount
+
 
 function UpdateDom() {
     const [show, setShow] = useState(false)
