@@ -7,6 +7,8 @@ import CallAPI from './useEffectExample/CallAPI';
 import ListenDomEvent from './useEffectExample/ListenDomEvent';
 import ResizeWindow from './useEffectExample/ResizeWindow';
 import Timer from './useEffectExample/Timer'
+import PreviewAvatar from './useEffectExample/PreviewAvatar';
+import ChatApp from './useEffectExample/ChatApp';
 
 function App() {
   const [show, setShow] = useState(false)
@@ -32,7 +34,9 @@ function App() {
       <button onClick={handleShow}>Show</button>
       {/* {show && <ListenDomEvent></ListenDomEvent>}  */}
       {/* {show && <ResizeWindow></ResizeWindow>}  */}
-      {show && <Timer></Timer>} 
+      {/* {show && <Timer></Timer>}  */}
+      {/* {show && <PreviewAvatar></PreviewAvatar>}  */}
+      {show && <ChatApp></ChatApp>} 
       
     </div>
 

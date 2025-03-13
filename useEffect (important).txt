@@ -30,7 +30,7 @@ có 3 trường hợp:
 
 - callback luôn được gọi sau khi component mount
 - clean up function: được gọi trước khi component unmount
-
+- clean up function luôn được gọi trước khi callback được gọi
 
 function UpdateDom() {
     const [show, setShow] = useState(false)
@@ -156,3 +156,27 @@ function CallAPI() {
     )
 }
 useEffect sẽ được chạy khi type thay đổi
+
+function PreviewAvatar() {
+    const [count, setCount] = useState(1)
+
+    useEffect(() => {
+        console.log('Mounted or Re-rendered')
+
+        return () => {
+            console.log('Clean up')
+        }
+    }, [count])  
+    return (
+        <div>
+            <h1>{count}</h1>
+            <button
+                onClick={() => setCount(prev => prev + 1)} 
+                >
+                Click me!
+            </button>
+        </div>
+    )
+}
+
+clean up chạy trước mount => clean up chạy trước callback
