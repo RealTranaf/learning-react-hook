@@ -12,6 +12,7 @@ import ChatApp from './useEffectExample/ChatApp';
 import UseLayoutEffectExample from './useEffectExample/UseLayoutEffectExample';
 import Counter from './useRefExample/Counter';
 import Memo from './useCallBackExample/Memo';
+import UseCallBackExample from './useCallBackExample/UseCallBackExample';
 function App() {
   const [show, setShow] = useState(false)
 
@@ -41,7 +42,8 @@ function App() {
       {/* {show && <ChatApp></ChatApp>}  */}
       {/* {show && <UseLayoutEffectExample></UseLayoutEffectExample>}  */}
       {/* {show && <Counter></Counter>}  */}
-      {show && <Memo></Memo>} 
+      {/* {show && <Memo></Memo>}  */}
+      {show && <UseCallBackExample></UseCallBackExample>} 
       
     </div>
 
