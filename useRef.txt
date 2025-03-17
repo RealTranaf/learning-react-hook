@@ -1,0 +1,14 @@
+useRef: lưu các giá trị qua một tham chiếu bên ngoài function component
+
+let timerId
+const handleStart = () => {
+    timerid = setInterval(() => {
+        setCount(prev => prev - 1)
+    }, 1000)
+}
+
+const handleStop = () => {
+    clearInterval(timerId)
+}
+
+không hoạt động
