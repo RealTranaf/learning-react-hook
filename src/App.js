@@ -13,6 +13,9 @@ import UseLayoutEffectExample from './useEffectExample/UseLayoutEffectExample';
 import Counter from './useRefExample/Counter';
 import Memo from './useCallBackExample/Memo';
 import UseCallBackExample from './useCallBackExample/UseCallBackExample';
+import UseMemoExample from './useCallBackExample/UseMemoExample';
+import UseReducerExample from './useReducerExample/UseReducerExample';
+import ToDoReducer from './useReducerExample/ToDoReducer';
 function App() {
   const [show, setShow] = useState(false)
 
@@ -43,7 +46,11 @@ function App() {
       {/* {show && <UseLayoutEffectExample></UseLayoutEffectExample>}  */}
       {/* {show && <Counter></Counter>}  */}
       {/* {show && <Memo></Memo>}  */}
-      {show && <UseCallBackExample></UseCallBackExample>} 
+      {/* {show && <UseCallBackExample></UseCallBackExample>}  */}
+      {/* {show && <UseMemoExample></UseMemoExample>}  */}
+      {/* {show && <UseReducerExample></UseReducerExample>}  */}
+      {show && <ToDoReducer></ToDoReducer>} 
+
       
     </div>
 
